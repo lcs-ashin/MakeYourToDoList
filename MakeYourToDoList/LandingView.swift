@@ -11,6 +11,7 @@ struct LandingView: View {
     // MARK: Stored Properties
     // Controls whether these views are showing or not
     @State var showNewToDoPage = false
+    @State var showSettings = false
     
     // MARK: Computed Properties
     var body: some View {
@@ -40,13 +41,16 @@ struct LandingView: View {
                     CreateNewToDoView(showThisView: $showNewToDoPage)
                 }
             
-            // Setting button
+            // Settingss button
             Image(systemName: "gear.circle.fill")
                 .foregroundColor(.black)
                 .font(Font.system(size: 70))
                 .offset(x: 140, y: 130)
                 .onTapGesture {
-                    print("Open setting page")
+                    showSettings = true
+                }
+                .sheet(isPresented: $showSettings) {
+                    SettingsView(showThisView: $showSettings)
                 }
             
         }
