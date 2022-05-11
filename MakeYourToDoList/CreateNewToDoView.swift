@@ -78,7 +78,7 @@ struct CreateNewToDoView: View {
                         
                         Text("Add a Task")
                             .foregroundColor(.secondary)
-                            .font(.largeTitle)
+                            .font(.custom("Avenir-Book", size: 40))
                         
                         Spacer()
                         
@@ -87,10 +87,11 @@ struct CreateNewToDoView: View {
                         List {
                             Section() {
                                 
-                                HStack {
+                             //   HStack {
                                     // Task
                                     ForEach(listOfTasks, id: \.self) { newTask in
                                         
+                                        HStack {
                                         // Check box
                                         Image(systemName: capsuleColor)
                                             .foregroundColor(.black)
@@ -106,9 +107,9 @@ struct CreateNewToDoView: View {
                                         Image(systemName: "calendar")
                                             .foregroundColor(.black)
                                             .font(.system(size: 25))
-                                        
+                                        }
                                     }
-                                }
+                             //   }
                             }
                             .font(.custom("Avenir-Book", size: 20))
                         }
