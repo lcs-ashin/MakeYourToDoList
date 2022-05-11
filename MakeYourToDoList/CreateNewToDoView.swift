@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+struct AddedTask: Hashable {
+    let taskName: String
+}
+
 struct CreateNewToDoView: View {
     
     // MARK: Stored Properties
@@ -21,6 +25,10 @@ struct CreateNewToDoView: View {
     
     // Controls the opacity of the capsule
     @State var capsuleColor = "capsule.portrait"
+    
+    // Keep track of the list of tasks
+    @State var listOfTasks = [AddedTask]()
+    
     
     // MARK: Computed Properties
     var body: some View {
@@ -46,7 +54,7 @@ struct CreateNewToDoView: View {
                     
                     // Enter a task
                     HStack {
-                        TextField("Enter your task", text: $task)
+                        TextField("Enter your task", text: self.$task)
                             .textFieldStyle(.roundedBorder)
                             .frame(height: 30)
                         
@@ -55,39 +63,59 @@ struct CreateNewToDoView: View {
                             .foregroundColor(.black)
                             .onTapGesture {
                                 print("Add the task")
+                                
+                                self.listOfTasks.append(AddedTask(taskName: self.task))
                             }
                     }
                     .padding()
                     
                     
                     // List of added tasks
-                    List {
-                        Section() {
-                            
-                            HStack {
+                    // If the list is empty...
+                    if listOfTasks.isEmpty {
+                        
+                        Spacer()
+                        
+                        Text("Add a Task")
+                            .foregroundColor(.secondary)
+                            .font(.largeTitle)
+                        
+                        Spacer()
+                        
+                    } else {
+                        // Show the list
+                        List {
+                            Section() {
                                 
-                                // Check box
-                                Image(systemName: capsuleColor)
-                                    .foregroundColor(.black)
-                                    .onTapGesture {
-                                        capsuleColor = "capsule.portrait.fill"
+                                HStack {
+                                    // Task
+                                    ForEach(listOfTasks, id: \.self) { newTask in
+                                        
+                                        // Check box
+                                        Image(systemName: capsuleColor)
+                                            .foregroundColor(.black)
+                                            .onTapGesture {
+                                                capsuleColor = "capsule.portrait.fill"
+                                            }
+                                        
+                                        Text(newTask.taskName)
+                                        
+                                        Spacer()
+                                        
+                                        // Set a due date
+                                        Image(systemName: "calendar")
+                                            .foregroundColor(.black)
+                                            .font(.system(size: 25))
+                                        
                                     }
-                                
-                                // Task
-                                Text("Calculus review")
-                                
-                                Spacer()
-                                
-                                // Set a due date
-                                Image(systemName: "calendar")
-                                    .foregroundColor(.black)
-                                    .font(.system(size: 25))
-                                
+                                }
                             }
+                            .font(.custom("Avenir-Book", size: 20))
                         }
-                        .font(.custom("Avenir-Book", size: 20))
+                        .listStyle(.insetGrouped)
+                        
                     }
-                    .listStyle(.insetGrouped)
+                    
                     
                     Spacer()
                     
