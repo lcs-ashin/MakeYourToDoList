@@ -16,6 +16,10 @@ struct SettingsView: View {
     // Controls the theme colour
     @State var themeColor = Color.blue
     
+    // Available fonts
+//    var fonts = ["Avenir-Book", "AppleSDGothicNeo-UltraLight", "DevanagariSangamMN", "Georgia", "GillSans-Light", "HelveticaNeue-Light", "Optima-Regular"]
+//    @State var selectedFont = "Avenir-Book"
+    
     // MARK: Computed Properties
     var body: some View {
         
@@ -32,14 +36,21 @@ struct SettingsView: View {
                 ColorPicker("Theme Colour", selection: $themeColor, supportsOpacity: false)
                     .font(Font.custom("Avenir-Medium", size: 25))
                     .padding()
+                    .frame(width: 300)
+                
+                // Select the font
+//                // Picker
+//                Picker("Fonts", selection: $selectedFont) {
+//                    ForEach(fonts, id: \.self) {
+//                        Text($0)
+//                    }
+//                }
+//                .font(Font.custom("Avenir-Medium", size: 25))
                 
                 // Text for test
                 Text("Test")
                     .foregroundColor(themeColor)
-                
-                // Select the font
-                Text("Fonts")
-                    .font(Font.custom("Avenir-Medium", size: 25))
+//                    .font(.custom(selectedFont, size: 25))
             }
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
