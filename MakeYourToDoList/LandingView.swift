@@ -24,12 +24,13 @@ struct LandingView: View {
                     Text("May 7, 2022")
                     Text("May 1, 2022")
                 }
+                .font(.custom("Avenir-Book", size: 20))
             }
             .listStyle(.insetGrouped)
             
             // New To-Do list button
             Image(systemName: "plus.circle.fill")
-                .foregroundColor(.blue)
+                .foregroundColor(.black)
                 .font(Font.system(size: 70))
                 .offset(x: 140, y: 220)
                 .onTapGesture {
@@ -41,7 +42,7 @@ struct LandingView: View {
             
             // Setting button
             Image(systemName: "gear.circle.fill")
-                .foregroundColor(.blue)
+                .foregroundColor(.black)
                 .font(Font.system(size: 70))
                 .offset(x: 140, y: 130)
                 .onTapGesture {

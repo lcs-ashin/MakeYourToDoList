@@ -36,11 +36,12 @@ struct CreateNewToDoView: View {
                     // Set the date
                     DatePicker(selection: $dateOfToday, in: ...Date(), displayedComponents: .date) {
                         Text("Today Is")
-                            .font(Font.custom("Avenir-Heavy", size: 40))
+                            .font(.custom("Avenir-Heavy", size: 40))
                         
                     }
                     .frame(width: 290, height: 30, alignment: .center)
                     .padding(.horizontal, 10)
+                    .accentColor(.black)
                     .padding()
                     
                     // Enter a task
@@ -97,16 +98,18 @@ struct CreateNewToDoView: View {
                 }
                 
                 // CompletedTaskView Tab
-                CompletedTaskView()
+                CompletedTaskView(capsuleColor: "capsule.portrait.fill")
                     .tabItem {
                         Image(systemName: "checkmark.square")
                     }
             }
+            .accentColor(.black)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button("Done") {
                         hideView()
                     }
+                    .foregroundColor(.black)
                 }
             }
         }
