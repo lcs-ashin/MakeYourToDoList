@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct LandingView: View {
+    // MARK: Stored Properties
+    // Controls whether these views are showing or not
+    @State var showNewToDoPage = false
+    
+    // MARK: Computed Properties
     var body: some View {
         
         ZStack {
@@ -28,7 +33,10 @@ struct LandingView: View {
                 .font(Font.system(size: 70))
                 .offset(x: 140, y: 220)
                 .onTapGesture {
-                    print("Make a new To-Do")
+                    showNewToDoPage = true
+                }
+                .sheet(isPresented: $showNewToDoPage) {
+                    CreateNewToDoView(showThisView: $showNewToDoPage)
                 }
             
             // Setting button
