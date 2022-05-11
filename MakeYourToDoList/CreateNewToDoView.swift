@@ -27,74 +27,88 @@ struct CreateNewToDoView: View {
         
         NavigationView {
             
-            VStack {
+            // Tab view
+            TabView {
                 
-                // Set the date
-                DatePicker(selection: $dateOfToday, in: ...Date(), displayedComponents: .date) {
-                    Text("Today Is")
-                        .font(Font.custom("Avenir-Heavy", size: 40))
+                // CreateNewToDoView Tab
+                VStack {
                     
-                }
-                .frame(width: 290, height: 30, alignment: .center)
-                .padding(.horizontal, 10)
-                .toolbar {
-                    ToolbarItem(placement: .primaryAction) {
-                        Button("Done") {
-                            hideView()
-                        }
-                    }
-                }
-                .padding()
-                
-                // Enter a task
-                HStack {
-                    TextField("Enter your task", text: $task)
-                        .textFieldStyle(.roundedBorder)
-                        .frame(height: 30)
-                    
-                    Image(systemName: "plus")
-                        .font(.system(size: 25))
-                        .foregroundColor(.black)
-                        .onTapGesture {
-                            print("Add the task")
-                        }
-                }
-                .padding()
-                
-                
-                // List of added tasks
-                List {
-                    Section() {
+                    // Set the date
+                    DatePicker(selection: $dateOfToday, in: ...Date(), displayedComponents: .date) {
+                        Text("Today Is")
+                            .font(Font.custom("Avenir-Heavy", size: 40))
                         
-                        HStack {
-                            
-                            // Check box
-                            Image(systemName: capsuleColor)
-                                .foregroundColor(.black)
-                                .onTapGesture {
-                                    capsuleColor = "capsule.portrait.fill"
-                                }
-                            
-                            // Task
-                            Text("Calculus review")
-                            
-                            Spacer()
-                            
-                            // Set a due date
-                            Image(systemName: "calendar")
-                                .foregroundColor(.black)
-                                .font(.system(size: 25))
-                            
-                        }
                     }
-                    .font(.custom("Avenir-Book", size: 20))
+                    .frame(width: 290, height: 30, alignment: .center)
+                    .padding(.horizontal, 10)
+                    .padding()
+                    
+                    // Enter a task
+                    HStack {
+                        TextField("Enter your task", text: $task)
+                            .textFieldStyle(.roundedBorder)
+                            .frame(height: 30)
+                        
+                        Image(systemName: "plus")
+                            .font(.system(size: 25))
+                            .foregroundColor(.black)
+                            .onTapGesture {
+                                print("Add the task")
+                            }
+                    }
+                    .padding()
+                    
+                    
+                    // List of added tasks
+                    List {
+                        Section() {
+                            
+                            HStack {
+                                
+                                // Check box
+                                Image(systemName: capsuleColor)
+                                    .foregroundColor(.black)
+                                    .onTapGesture {
+                                        capsuleColor = "capsule.portrait.fill"
+                                    }
+                                
+                                // Task
+                                Text("Calculus review")
+                                
+                                Spacer()
+                                
+                                // Set a due date
+                                Image(systemName: "calendar")
+                                    .foregroundColor(.black)
+                                    .font(.system(size: 25))
+                                
+                            }
+                        }
+                        .font(.custom("Avenir-Book", size: 20))
+                    }
+                    .listStyle(.insetGrouped)
+                    
+                    Spacer()
+                    
                 }
-                .listStyle(.insetGrouped)
+                .padding()
+                .tabItem {
+                    Image(systemName: "list.bullet")
+                }
                 
-                Spacer()
-                
+                // CompletedTaskView Tab
+                CompletedTaskView()
+                    .tabItem {
+                        Image(systemName: "checkmark.square")
+                    }
             }
-            .padding()
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button("Done") {
+                        hideView()
+                    }
+                }
+            }
         }
     }
     
