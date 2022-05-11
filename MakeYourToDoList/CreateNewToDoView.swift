@@ -62,9 +62,8 @@ struct CreateNewToDoView: View {
                             .font(.system(size: 25))
                             .foregroundColor(.black)
                             .onTapGesture {
-                                print("Add the task")
-                                
                                 self.listOfTasks.append(AddedTask(taskName: self.task))
+                                self.task = ""
                             }
                     }
                     .padding()
