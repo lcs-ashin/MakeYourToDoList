@@ -9,7 +9,6 @@ import SwiftUI
 
 struct LandingView: View {
     // MARK: Stored Properties
- //   @Binding var toDoLists = [ToDoList]
     @Binding var listOfTasks: [AddedTask]
 
     // Controls whether these views are showing or not
@@ -20,20 +19,17 @@ struct LandingView: View {
     var body: some View {
         
         ZStack {
-            
-            // List of previous To-Do lists
-//            List {
-//                Section() {
-//                    Text("May 9, 2022")
-//                    Text("May 7, 2022")
-//                    Text("May 1, 2022")
-//                }
-//                .font(.custom("Avenir-Book", size: 20))
-//            }
-            List(listOfTasks) { currentToDoList in
-                Text(currentToDoList.taskName)
+            VStack {
+                Text("To-Do")
+                    .font(.custom("Avenir-Heavy", size: 40))
+                    .padding(.vertical, 30)
+                
+                List(listOfTasks) { currentToDoList in
+                    Text(currentToDoList.taskName)
+                }
+                .font(.custom("Avenir-Book", size: 20))
+                .listStyle(.insetGrouped)
             }
-            .listStyle(.insetGrouped)
             
             // New To-Do list button
             Image(systemName: "plus.circle.fill")
@@ -60,9 +56,6 @@ struct LandingView: View {
                 }
             
         }
-        
-
-        .navigationTitle("To-Do")
     }
 }
 
