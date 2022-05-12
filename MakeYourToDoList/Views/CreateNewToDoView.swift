@@ -7,10 +7,6 @@
 
 import SwiftUI
 
-struct AddedTask: Hashable {
-    let taskName: String
-}
-
 struct CreateNewToDoView: View {
     
     // MARK: Stored Properties
@@ -62,7 +58,7 @@ struct CreateNewToDoView: View {
                             .font(.system(size: 25))
                             .foregroundColor(.black)
                             .onTapGesture {
-                                self.listOfTasks.append(AddedTask(taskName: self.task))
+                                self.listOfTasks.append(AddedTask(taskName: self.task, taskIsCompleted: false))
                                 self.task = ""
                             }
                     }
@@ -86,7 +82,6 @@ struct CreateNewToDoView: View {
                         List {
                             Section() {
                                 
-                             //   HStack {
                                     // Task
                                     ForEach(listOfTasks, id: \.self) { newTask in
                                         
@@ -108,7 +103,6 @@ struct CreateNewToDoView: View {
                                             .font(.system(size: 25))
                                         }
                                     }
-                             //   }
                             }
                             .font(.custom("Avenir-Book", size: 20))
                         }
