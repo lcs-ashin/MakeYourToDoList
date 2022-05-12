@@ -78,9 +78,9 @@
 		8AAFB1D72829A1E40027B171 /* MakeYourToDoList */ = {
 			isa = PBXGroup;
 			children = (
+				8AAFB1D82829A1E40027B171 /* MakeYourToDoListApp.swift */,
 				8AAB9558282C87C7005EA2A3 /* Views */,
 				8AAB9555282C873C005EA2A3 /* Model */,
-				8AAFB1D82829A1E40027B171 /* MakeYourToDoListApp.swift */,
 				8AAFB1DC2829A1ED0027B171 /* Assets.xcassets */,
 				8AAFB1DE2829A1ED0027B171 /* Preview Content */,
 			);

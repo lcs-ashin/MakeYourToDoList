@@ -10,6 +10,9 @@ import SwiftUI
 struct CreateNewToDoView: View {
     
     // MARK: Stored Properties
+    
+ //   @Binding var toDoLists = [ToDoList]
+    
     // Controls whether to show this view or not
     @Binding var showThisView: Bool
     
@@ -20,7 +23,7 @@ struct CreateNewToDoView: View {
     @State var task: String = ""
     
     // Keep track of the list of tasks
-    @State var listOfTasks = [AddedTask]()
+    @Binding var listOfTasks: [AddedTask]
     
     // Add completed tasks to another list
     @State var completedTasks: [AddedTask] = []
@@ -83,7 +86,7 @@ struct CreateNewToDoView: View {
                             Section() {
                                 
                                     // Task
-                                    ForEach(listOfTasks, id: \.self) { newTask in
+                                    ForEach(listOfTasks) { newTask in
                                         
                                         HStack {
                                         
@@ -136,6 +139,14 @@ struct CreateNewToDoView: View {
                 ToolbarItem(placement: .primaryAction) {
                     Button("Create") {
                         hideView()
+                        
+                        let newId = listOfTasks.count + 1
+                        
+                        let newToDoList = AddedTask(taskName: task, taskIsCompleted: false)
+                        
+                        // Add to the list of teams
+                        listOfTasks.append(newToDoList)
+                        
                     }
                     .foregroundColor(.black)
                 }
@@ -157,6 +168,7 @@ struct CreateNewToDoView: View {
 
 struct CreateNewToDoView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateNewToDoView(showThisView: .constant(true))
+        CreateNewToDoView(showThisView: .constant(true),
+                          listOfTasks: .constant(exampleAddedTasks))
     }
 }

@@ -9,11 +9,12 @@ import SwiftUI
 
 @main
 struct MakeYourToDoListApp: App {
+    
+    @State var listOfTasks: [AddedTask] = exampleAddedTasks
+    
     var body: some Scene {
         WindowGroup {
-            NavigationView {
-                LandingView()
-            }
+            LandingView(listOfTasks: $listOfTasks)
         }
     }
 }

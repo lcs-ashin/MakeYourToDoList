@@ -9,6 +9,9 @@ import SwiftUI
 
 struct LandingView: View {
     // MARK: Stored Properties
+ //   @Binding var toDoLists = [ToDoList]
+    @Binding var listOfTasks: [AddedTask]
+
     // Controls whether these views are showing or not
     @State var showNewToDoPage = false
     @State var showSettings = false
@@ -19,13 +22,16 @@ struct LandingView: View {
         ZStack {
             
             // List of previous To-Do lists
-            List {
-                Section() {
-                    Text("May 9, 2022")
-                    Text("May 7, 2022")
-                    Text("May 1, 2022")
-                }
-                .font(.custom("Avenir-Book", size: 20))
+//            List {
+//                Section() {
+//                    Text("May 9, 2022")
+//                    Text("May 7, 2022")
+//                    Text("May 1, 2022")
+//                }
+//                .font(.custom("Avenir-Book", size: 20))
+//            }
+            List(listOfTasks) { currentToDoList in
+                Text(currentToDoList.taskName)
             }
             .listStyle(.insetGrouped)
             
@@ -38,7 +44,7 @@ struct LandingView: View {
                     showNewToDoPage = true
                 }
                 .sheet(isPresented: $showNewToDoPage) {
-                    CreateNewToDoView(showThisView: $showNewToDoPage)
+                    CreateNewToDoView(showThisView: $showNewToDoPage, listOfTasks: $listOfTasks)
                 }
             
             // Settingss button
@@ -63,7 +69,7 @@ struct LandingView: View {
 struct LandingView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            LandingView()
+            LandingView(listOfTasks: .constant(exampleAddedTasks))
         }
     }
 }

@@ -37,7 +37,7 @@ struct CompletedTaskView: View {
                 List {
                     Section() {
                         
-                        ForEach(completedTasks, id: \.self) { newCompletedTask in
+                        ForEach(completedTasks) { newCompletedTask in
                             
                             HStack {
                                 

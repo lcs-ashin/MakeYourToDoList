@@ -7,7 +7,12 @@
 
 import Foundation
 
-struct AddedTask: Hashable {
+struct AddedTask: Identifiable {
+    let id = UUID()
     let taskName: String
     let taskIsCompleted: Bool
 }
+
+let exampleAddedTasks = [
+    AddedTask(taskName: "Calculus", taskIsCompleted: false)
+]
