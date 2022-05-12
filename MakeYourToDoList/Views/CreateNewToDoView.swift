@@ -19,11 +19,11 @@ struct CreateNewToDoView: View {
     // A task the user enters
     @State var task: String = ""
     
-    // Controls the opacity of the capsule
-    @State var capsuleColor = "capsule.portrait"
-    
     // Keep track of the list of tasks
     @State var listOfTasks = [AddedTask]()
+    
+    // Add completed tasks to another list
+    @State var completedTasks: [AddedTask] = []
     
     
     // MARK: Computed Properties
@@ -86,12 +86,6 @@ struct CreateNewToDoView: View {
                                     ForEach(listOfTasks, id: \.self) { newTask in
                                         
                                         HStack {
-                                        // Check box
-                                        Image(systemName: capsuleColor)
-                                            .foregroundColor(.black)
-                                            .onTapGesture {
-                                                capsuleColor = "capsule.portrait.fill"
-                                            }
                                         
                                         Text(newTask.taskName)
                                         
@@ -103,7 +97,18 @@ struct CreateNewToDoView: View {
                                             .font(.system(size: 25))
                                         }
                                     }
-                                    .onDelete(perform: delete)
+                                    .swipeActions(edge: .trailing,
+                                                  allowsFullSwipe: true) {
+                                        Button("Completed") {
+                                            completedTasks.append(AddedTask(taskName: self.task, taskIsCompleted: true))
+                                        }
+                                        .tint(.black)
+                                        
+                                        Button("Delete") {
+                                            
+                                        }
+                                        .tint(.red)
+                                    }
                             }
                             .font(.custom("Avenir-Book", size: 20))
                         }
@@ -121,7 +126,7 @@ struct CreateNewToDoView: View {
                 }
                 
                 // CompletedTaskView Tab
-                CompletedTaskView(capsuleColor: "capsule.portrait.fill")
+                CompletedTaskView(completedTasks: $completedTasks)
                     .tabItem {
                         Image(systemName: "checkmark.square")
                     }
@@ -135,7 +140,6 @@ struct CreateNewToDoView: View {
                     .foregroundColor(.black)
                 }
             }
-            .navigationBarItems(leading: EditButton().foregroundColor(.black))
         }
     }
     

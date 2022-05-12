@@ -9,8 +9,8 @@ import SwiftUI
 
 struct CompletedTaskView: View {
     // MARK: Stored Properties
-    // Controls the opacity of the capsule
-    @State var capsuleColor: String
+    // List of completed tasks
+    @Binding var completedTasks: [AddedTask]
     
     // MARK: Computed Properties
     var body: some View {
@@ -21,41 +21,60 @@ struct CompletedTaskView: View {
                 .font(Font.custom("Avenir-Heavy", size: 40))
             
             // List of completed tasks
-            List {
-                Section() {
-                    
-                    HStack {
-                        
-                        // Check box
-                        Image(systemName: capsuleColor)
-                            .foregroundColor(.black)
-                            .onTapGesture {
-                                capsuleColor = "capsule.portrait.fill"
-                            }
-                        
-                        // Task
-                        Text("Calculus review")
-                        
-                        Spacer()
-                        
-                        // Set a due date
-                        Image(systemName: "calendar")
-                            .foregroundColor(.black)
-                            .font(.system(size: 25))
-                        
-                    }
-                }
-                .font(.custom("Avenir-Book", size: 20))
-            }
-            .listStyle(.insetGrouped)
-            .padding()
             
+            if completedTasks.isEmpty {
+                
+                Spacer()
+                
+                Text("Complete your tasks")
+                    .foregroundColor(.secondary)
+                    .font(.custom("Avenir-Book", size: 40))
+                
+                Spacer()
+                
+            } else {
+                
+                List {
+                    Section() {
+                        
+                        ForEach(completedTasks, id: \.self) { newCompletedTask in
+                            
+                            HStack {
+                                
+                                Text(newCompletedTask.taskName)
+                                
+                                Spacer()
+                                
+                                // Set a due date
+                                Image(systemName: "calendar")
+                                    .foregroundColor(.black)
+                                    .font(.system(size: 25))
+                            }
+                        }
+                        .swipeActions(edge: .trailing,
+                                      allowsFullSwipe: true) {
+                            Button("Incompleted") {
+                                
+                            }
+                            .tint(.black)
+                            
+                            Button("Delete") {
+                                
+                            }
+                            .tint(.red)
+                        }
+                    }
+                    .font(.custom("Avenir-Book", size: 20))
+                }
+                .listStyle(.insetGrouped)
+                .padding()
+            }
         }
     }
 }
 
-struct CompletedTaskView_Previews: PreviewProvider {
-    static var previews: some View {
-        CompletedTaskView(capsuleColor: "capsule.portrait.fill")
-    }
-}
+//struct CompletedTaskView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CompletedTaskView(capsuleColor: "capsule.portrait.fill", completedTasks: "")
+//    }
+//}
