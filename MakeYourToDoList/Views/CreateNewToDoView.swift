@@ -11,7 +11,7 @@ struct CreateNewToDoView: View {
     
     // MARK: Stored Properties
     
- //   @Binding var toDoLists = [ToDoList]
+    //   @Binding var toDoLists = [ToDoList]
     
     // Controls whether to show this view or not
     @Binding var showThisView: Bool
@@ -34,113 +34,37 @@ struct CreateNewToDoView: View {
         
         NavigationView {
             
-            // Tab view
-            TabView {
+            
+            
+            // CreateNewToDoView Tab
+            VStack {
                 
-                // CreateNewToDoView Tab
-                VStack {
-                    
-                    // Set the date
-                    DatePicker(selection: $dateOfToday, in: ...Date(), displayedComponents: .date) {
-                        Text("Today Is")
-                            .font(.custom("Avenir-Heavy", size: 40))
-                        
-                    }
-                    .frame(width: 290, height: 30, alignment: .center)
-                    .padding(.horizontal, 10)
-                    .accentColor(.black)
-                    .padding()
-                    
-                    // Enter a task
-                    HStack {
-                        TextField("Enter your task", text: self.$task)
-                            .textFieldStyle(.roundedBorder)
-                            .frame(height: 30)
-                        
-                        Image(systemName: "plus")
-                            .font(.system(size: 25))
-                            .foregroundColor(.black)
-                            .onTapGesture {
-                                self.listOfTasks.append(AddedTask(taskName: self.task, taskIsCompleted: false))
-                                self.task = ""
-                            }
-                    }
-                    .padding()
-                    
-                    
-                    // List of added tasks
-                    // If the list is empty...
-                    if listOfTasks.isEmpty {
-                        
-                        Spacer()
-                        
-                        Text("Add a Task")
-                            .foregroundColor(.secondary)
-                            .font(.custom("Avenir-Book", size: 40))
-                        
-                        Spacer()
-                        
-                    } else {
-                        // Show the list
-                        List {
-                            Section() {
-                                
-                                    // Task
-                                    ForEach(listOfTasks) { newTask in
-                                        
-                                        HStack {
-                                        
-                                        Text(newTask.taskName)
-                                        
-                                        Spacer()
-                                        
-                                        // Set a due date
-                                        Image(systemName: "calendar")
-                                            .foregroundColor(.black)
-                                            .font(.system(size: 25))
-                                        }
-                                    }
-                                    .swipeActions(edge: .trailing,
-                                                  allowsFullSwipe: true) {
-                                        Button("Completed") {
-                                            completedTasks.append(AddedTask(taskName: self.task, taskIsCompleted: true))
-                                        }
-                                        .tint(.black)
-                                        
-                                        Button("Delete") {
-                                            
-                                        }
-                                        .tint(.red)
-                                    }
-                            }
-                            .font(.custom("Avenir-Book", size: 20))
-                        }
-                        .listStyle(.insetGrouped)
-                        
-                    }
-                    
-                    
-                    Spacer()
+                // Set the date
+                DatePicker(selection: $dateOfToday, in: ...Date(), displayedComponents: .date) {
+                    Text("Today Is")
+                        .font(.custom("Avenir-Heavy", size: 40))
                     
                 }
+                .frame(width: 290, height: 30, alignment: .center)
+                .padding(.horizontal, 10)
+                .accentColor(.black)
                 .padding()
-                .tabItem {
-                    Image(systemName: "list.bullet")
-                }
                 
-                // CompletedTaskView Tab
-                CompletedTaskView(completedTasks: $completedTasks)
-                    .tabItem {
-                        Image(systemName: "checkmark.square")
-                    }
+                // Enter a task
+                    TextField("Enter your task", text: self.$task)
+                        .font(.custom("Avenir-Book", size: 20))
+                        .textFieldStyle(.roundedBorder)
+                        .frame(height: 30)
+                        .padding()
+                
+                Spacer()
             }
+            .padding()
             .accentColor(.black)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
-                    Button("Create") {
+                    Button("Done") {
                         hideView()
-                        
-                        let newId = listOfTasks.count + 1
                         
                         let newToDoList = AddedTask(taskName: task, taskIsCompleted: false)
                         
@@ -148,7 +72,9 @@ struct CreateNewToDoView: View {
                         listOfTasks.append(newToDoList)
                         
                     }
-                    .foregroundColor(.black)
+                    .font(.custom("Avenir-Book", size: 20))
+                    .disabled(task.isEmpty ? true : false)
+                    .tint(.black)
                 }
             }
         }

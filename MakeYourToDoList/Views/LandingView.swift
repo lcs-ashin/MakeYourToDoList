@@ -15,47 +15,72 @@ struct LandingView: View {
     @State var showNewToDoPage = false
     @State var showSettings = false
     
+    // Add completed tasks to another list
+    @State var completedTasks: [AddedTask] = []
+    
     // MARK: Computed Properties
     var body: some View {
         
-        ZStack {
-            VStack {
-                Text("To-Do")
-                    .font(.custom("Avenir-Heavy", size: 40))
-                    .padding(.vertical, 30)
-                
-                List(listOfTasks) { currentToDoList in
-                    Text(currentToDoList.taskName)
+        TabView {
+            
+            // To Do
+            ZStack {
+                VStack {
+                    Text("To-Do")
+                        .font(.custom("Avenir-Heavy", size: 40))
+                        .padding(.vertical, 30)
+                    
+                    List(listOfTasks) { currentToDoList in
+                        Text(currentToDoList.taskName)
+                    }
+                    .font(.custom("Avenir-Book", size: 20))
+                    .listStyle(.insetGrouped)
                 }
-                .font(.custom("Avenir-Book", size: 20))
-                .listStyle(.insetGrouped)
+                
+                // New To-Do list button
+                Image(systemName: "plus.circle.fill")
+                    .foregroundColor(.black)
+                    .font(Font.system(size: 70))
+                    .offset(x: 140, y: 270)
+                    .onTapGesture {
+                        showNewToDoPage = true
+                    }
+                    .sheet(isPresented: $showNewToDoPage) {
+                        CreateNewToDoView(showThisView: $showNewToDoPage, listOfTasks: $listOfTasks)
+                    }
+                
+                // Settingss button
+                Image(systemName: "gear.circle.fill")
+                    .foregroundColor(.black)
+                    .font(Font.system(size: 70))
+                    .offset(x: 140, y: 180)
+                    .onTapGesture {
+                        showSettings = true
+                    }
+                    .sheet(isPresented: $showSettings) {
+                        SettingsView(showThisView: $showSettings)
+                    }
+            }
+            .tabItem {
+                VStack {
+                    Image(systemName: "list.bullet")
+                    Text("To-Do")
+                        .font(.custom("Avenir-Book", size: 15))
+                }
             }
             
-            // New To-Do list button
-            Image(systemName: "plus.circle.fill")
-                .foregroundColor(.black)
-                .font(Font.system(size: 70))
-                .offset(x: 140, y: 220)
-                .onTapGesture {
-                    showNewToDoPage = true
-                }
-                .sheet(isPresented: $showNewToDoPage) {
-                    CreateNewToDoView(showThisView: $showNewToDoPage, listOfTasks: $listOfTasks)
-                }
             
-            // Settingss button
-            Image(systemName: "gear.circle.fill")
-                .foregroundColor(.black)
-                .font(Font.system(size: 70))
-                .offset(x: 140, y: 130)
-                .onTapGesture {
-                    showSettings = true
+            // Completed Tasks
+            CompletedTaskView(completedTasks: $completedTasks)
+                .tabItem {
+                    Image(systemName: "checkmark.square")
+                    Text("Completed")
+                        .font(.custom("Avenir-Book", size: 15))
+                        
                 }
-                .sheet(isPresented: $showSettings) {
-                    SettingsView(showThisView: $showSettings)
-                }
-            
         }
+        .accentColor(.black)
+        .padding(.bottom, 15)
     }
 }
 

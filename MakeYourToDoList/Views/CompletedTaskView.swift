@@ -19,6 +19,8 @@ struct CompletedTaskView: View {
             // Title
             Text("Completed Tasks")
                 .font(Font.custom("Avenir-Heavy", size: 40))
+                .padding(.vertical, 30)
+
             
             // List of completed tasks
             
@@ -28,7 +30,7 @@ struct CompletedTaskView: View {
                 
                 Text("Complete your tasks")
                     .foregroundColor(.secondary)
-                    .font(.custom("Avenir-Book", size: 40))
+                    .font(.custom("Avenir-Book", size: 30))
                 
                 Spacer()
                 
