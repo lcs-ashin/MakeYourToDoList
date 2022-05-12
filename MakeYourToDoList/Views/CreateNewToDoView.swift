@@ -103,6 +103,7 @@ struct CreateNewToDoView: View {
                                             .font(.system(size: 25))
                                         }
                                     }
+                                    .onDelete(perform: delete)
                             }
                             .font(.custom("Avenir-Book", size: 20))
                         }
@@ -128,12 +129,13 @@ struct CreateNewToDoView: View {
             .accentColor(.black)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
-                    Button("Done") {
+                    Button("Create") {
                         hideView()
                     }
                     .foregroundColor(.black)
                 }
             }
+            .navigationBarItems(leading: EditButton().foregroundColor(.black))
         }
     }
     
@@ -141,6 +143,10 @@ struct CreateNewToDoView: View {
     // Makes this view go away
     func hideView() {
         showThisView = false
+    }
+    
+    func delete(indexSet: IndexSet) {
+        listOfTasks.remove(atOffsets: indexSet)
     }
     
 }
