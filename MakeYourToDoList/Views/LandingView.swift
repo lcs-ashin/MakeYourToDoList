@@ -10,7 +10,7 @@ import SwiftUI
 struct LandingView: View {
     // MARK: Stored Properties
     @Binding var listOfTasks: [AddedTask]
-
+    
     // Controls whether these views are showing or not
     @State var showNewToDoPage = false
     @State var showSettings = false
@@ -19,7 +19,7 @@ struct LandingView: View {
     @State var completedTasks: [AddedTask] = []
     
     @Binding var task: String
-
+    
     
     // MARK: Computed Properties
     var body: some View {
@@ -33,26 +33,41 @@ struct LandingView: View {
                         .font(.custom("Avenir-Heavy", size: 40))
                         .padding(.vertical, 30)
                     
-                    List(listOfTasks) { currentToDoList in
-                        Text(currentToDoList.taskName)
-                            .swipeActions(edge: .trailing,
-                                          allowsFullSwipe: true) {
-                                Button("Completed") {
-                                    let newCompletedTask = AddedTask(taskName: currentToDoList.taskName, taskIsCompleted: true)
+                    if listOfTasks.isEmpty {
+                        
+                        Spacer()
+                        
+                        Text("Add New Tasks")
+                            .foregroundColor(.secondary)
+                            .font(.custom("Avenir-Book", size: 30))
+                        
+                        Spacer()
+                        
+                    } else {
+                        List(listOfTasks) { currentToDoList in
+                            Text(currentToDoList.taskName)
+                                .swipeActions(edge: .trailing,
+                                              allowsFullSwipe: true) {
+                                    Button("Completed") {
+                                        let newCompletedTask = AddedTask(taskName: currentToDoList.taskName, taskIsCompleted: true)
+                                        
+                                        // Add to the list of teams
+                                        completedTasks.append(newCompletedTask)
+                                        
+                                        // Delete from To-Do list
+                                        listOfTasks.remove(at: listOfTasks.firstIndex(of: currentToDoList)!)
+                                    }
+                                    .tint(.black)
                                     
-                                    // Add to the list of teams
-                                    completedTasks.append(newCompletedTask)
+                                    Button("Delete") {
+                                        listOfTasks.remove(at: listOfTasks.firstIndex(of: currentToDoList)!)
+                                    }
+                                    .tint(.red)
                                 }
-                                .tint(.black)
-                                
-                                Button("Delete") {
-                                  
-                                }
-                                .tint(.red)
-                            }
+                        }
+                        .font(.custom("Avenir-Book", size: 20))
+                        .listStyle(.insetGrouped)
                     }
-                    .font(.custom("Avenir-Book", size: 20))
-                    .listStyle(.insetGrouped)
                 }
                 
                 // New To-Do list button
@@ -89,17 +104,22 @@ struct LandingView: View {
             
             
             // Completed Tasks
-            CompletedTaskView(completedTasks: $completedTasks)
+            CompletedTaskView(completedTasks: $completedTasks, listOfTasks: $listOfTasks)
                 .tabItem {
                     Image(systemName: "checkmark.square")
                     Text("Completed")
                         .font(.custom("Avenir-Book", size: 15))
-                        
+                    
                 }
         }
         .accentColor(.black)
         .padding(.bottom, 15)
     }
+    
+    func delete(indexSet: IndexSet) {
+        listOfTasks.remove(atOffsets: indexSet)
+    }
+    
 }
 
 struct LandingView_Previews: PreviewProvider {

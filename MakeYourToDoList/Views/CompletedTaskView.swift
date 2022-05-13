@@ -12,6 +12,8 @@ struct CompletedTaskView: View {
     // List of completed tasks
     @Binding var completedTasks: [AddedTask]
     
+    @Binding var listOfTasks: [AddedTask]
+    
     // MARK: Computed Properties
     var body: some View {
         
@@ -41,12 +43,19 @@ struct CompletedTaskView: View {
                         .swipeActions(edge: .trailing,
                                       allowsFullSwipe: true) {
                             Button("Incompleted") {
+                                let newIncompletedTask = AddedTask(taskName: currentCompletedTask.taskName, taskIsCompleted: false)
+                                
+                                // Add to the list of teams
+                                listOfTasks.append(newIncompletedTask)
+                                
+                                // Delete from completed tasks
+                                completedTasks.remove(at: completedTasks.firstIndex(of: currentCompletedTask)!)
 
                             }
                             .tint(.black)
                             
                             Button("Delete") {
-                              
+                                completedTasks.remove(at: completedTasks.firstIndex(of: currentCompletedTask)!)
                             }
                             .tint(.red)
                         }
