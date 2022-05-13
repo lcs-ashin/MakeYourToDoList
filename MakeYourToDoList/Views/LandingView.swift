@@ -18,6 +18,9 @@ struct LandingView: View {
     // Add completed tasks to another list
     @State var completedTasks: [AddedTask] = []
     
+    @Binding var task: String
+
+    
     // MARK: Computed Properties
     var body: some View {
         
@@ -32,6 +35,21 @@ struct LandingView: View {
                     
                     List(listOfTasks) { currentToDoList in
                         Text(currentToDoList.taskName)
+                            .swipeActions(edge: .trailing,
+                                          allowsFullSwipe: true) {
+                                Button("Completed") {
+                                    let newCompletedTask = AddedTask(taskName: currentToDoList.taskName, taskIsCompleted: true)
+                                    
+                                    // Add to the list of teams
+                                    completedTasks.append(newCompletedTask)
+                                }
+                                .tint(.black)
+                                
+                                Button("Delete") {
+                                  
+                                }
+                                .tint(.red)
+                            }
                     }
                     .font(.custom("Avenir-Book", size: 20))
                     .listStyle(.insetGrouped)
@@ -87,7 +105,7 @@ struct LandingView: View {
 struct LandingView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            LandingView(listOfTasks: .constant(exampleAddedTasks))
+            LandingView(listOfTasks: .constant(exampleAddedTasks), task: .constant(""))
         }
     }
 }

@@ -36,40 +36,23 @@ struct CompletedTaskView: View {
                 
             } else {
                 
-                List {
-                    Section() {
-                        
-                        ForEach(completedTasks) { newCompletedTask in
-                            
-                            HStack {
-                                
-                                Text(newCompletedTask.taskName)
-                                
-                                Spacer()
-                                
-                                // Set a due date
-                                Image(systemName: "calendar")
-                                    .foregroundColor(.black)
-                                    .font(.system(size: 25))
-                            }
-                        }
+                List(completedTasks) { currentCompletedTask in
+                    Text(currentCompletedTask.taskName)
                         .swipeActions(edge: .trailing,
                                       allowsFullSwipe: true) {
                             Button("Incompleted") {
-                                
+
                             }
                             .tint(.black)
                             
                             Button("Delete") {
-                                
+                              
                             }
                             .tint(.red)
                         }
-                    }
-                    .font(.custom("Avenir-Book", size: 20))
                 }
+                .font(.custom("Avenir-Book", size: 20))
                 .listStyle(.insetGrouped)
-                .padding()
             }
         }
     }
