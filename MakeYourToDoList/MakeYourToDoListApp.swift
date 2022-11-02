@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct MakeYourToDoListApp: App {
     
-    @State var listOfTasks: [AddedTask] = exampleAddedTasks
+    @State var listOfTasks: [AddedTask] = []
     @State var task: String = ""
 
     

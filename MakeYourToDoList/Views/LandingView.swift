@@ -125,7 +125,15 @@ struct LandingView: View {
 struct LandingView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            LandingView(listOfTasks: .constant(exampleAddedTasks), task: .constant(""))
+            LiveContentView()
+        }
+    }
+    
+    struct LiveContentView: View {
+        @State var tasksToDo: [AddedTask] = []
+        
+        var body: some View {
+            LandingView(listOfTasks: $tasksToDo, task: .constant(""))
         }
     }
 }
