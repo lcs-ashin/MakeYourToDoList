@@ -18,8 +18,12 @@ struct LandingView: View {
     // Add completed tasks to another list
     @State var completedTasks: [AddedTask] = []
     
+    // Added tasks and due dates of the tasks
     @Binding var task: String
     @Binding var dateOfToday: Date
+    
+    // Whether a date has been selected or not
+    @State var selectionMade = false
     
     // MARK: Computed Properties
     var body: some View {
