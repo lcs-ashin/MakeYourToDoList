@@ -11,8 +11,9 @@ struct AddedTask: Identifiable, Equatable {
     let id = UUID()
     let taskName: String
     let taskIsCompleted: Bool
+    let savedDate: Date
 }
 
 let exampleAddedTasks = [
-    AddedTask(taskName: "Calculus", taskIsCompleted: false)
+    AddedTask(taskName: "Calculus", taskIsCompleted: false, savedDate: Date())
 ]

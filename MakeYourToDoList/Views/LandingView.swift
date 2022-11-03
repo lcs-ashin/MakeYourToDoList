@@ -19,7 +19,7 @@ struct LandingView: View {
     @State var completedTasks: [AddedTask] = []
     
     @Binding var task: String
-    
+    @Binding var dateOfToday: Date
     
     // MARK: Computed Properties
     var body: some View {
@@ -45,27 +45,42 @@ struct LandingView: View {
                         
                     } else {
                         List(listOfTasks) { currentToDoList in
-                            Text(currentToDoList.taskName)
-                                .swipeActions(edge: .trailing,
-                                              allowsFullSwipe: true) {
-                                    Button("Completed") {
-                                        let newCompletedTask = AddedTask(taskName: currentToDoList.taskName, taskIsCompleted: true)
-                                        
-                                        // Add to the list of teams
-                                        completedTasks.append(newCompletedTask)
-                                        
-                                        // Delete from To-Do list
-                                        listOfTasks.remove(at: listOfTasks.firstIndex(of: currentToDoList)!)
-                                    }
-                                    .tint(.black)
+                            
+                            HStack {
+                                Text(currentToDoList.taskName)
+                                    .font(.custom("Avenir-Book", size: 20))
+                                
+                                Spacer()
+                                
+                                Text(currentToDoList.savedDate.formatted(date: .abbreviated, time: .omitted))
+                                    .font(.custom("Avenir-Book", size: 17))
+                            }
+                            .swipeActions(edge: .trailing,
+                                          allowsFullSwipe: true) {
+                                
+                        
+                                Button("Completed") {
+                                    let newCompletedTask = AddedTask(taskName: currentToDoList.taskName,
+                                                                     taskIsCompleted: true,
+                                                                     savedDate: currentToDoList.savedDate)
                                     
-                                    Button("Delete") {
-                                        listOfTasks.remove(at: listOfTasks.firstIndex(of: currentToDoList)!)
-                                    }
-                                    .tint(.red)
+                                    // Add to the list of teams
+                                    completedTasks.append(newCompletedTask)
+                                    
+                                    // Delete from To-Do list
+                                    listOfTasks.remove(at: listOfTasks.firstIndex(of: currentToDoList)!)
                                 }
+                                .tint(.black)
+                                .font(.custom("Avenir-Book", size: 20))
+                                
+                                Button("Delete") {
+                                    listOfTasks.remove(at: listOfTasks.firstIndex(of: currentToDoList)!)
+                                }
+                                .tint(.red)
+                                .font(.custom("Avenir-Book", size: 20))
+                                
+                            }
                         }
-                        .font(.custom("Avenir-Book", size: 20))
                         .listStyle(.insetGrouped)
                     }
                 }
@@ -133,7 +148,7 @@ struct LandingView_Previews: PreviewProvider {
         @State var tasksToDo: [AddedTask] = []
         
         var body: some View {
-            LandingView(listOfTasks: $tasksToDo, task: .constant(""))
+            LandingView(listOfTasks: $tasksToDo, task: .constant(""), dateOfToday: .constant(Date()))
         }
     }
 }

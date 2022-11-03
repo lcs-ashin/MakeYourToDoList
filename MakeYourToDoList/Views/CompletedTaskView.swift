@@ -43,7 +43,7 @@ struct CompletedTaskView: View {
                         .swipeActions(edge: .trailing,
                                       allowsFullSwipe: true) {
                             Button("Incompleted") {
-                                let newIncompletedTask = AddedTask(taskName: currentCompletedTask.taskName, taskIsCompleted: false)
+                                let newIncompletedTask = AddedTask(taskName: currentCompletedTask.taskName, taskIsCompleted: false, savedDate: currentCompletedTask.savedDate)
                                 
                                 // Add to the list of teams
                                 listOfTasks.append(newIncompletedTask)

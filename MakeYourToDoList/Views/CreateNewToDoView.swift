@@ -66,7 +66,7 @@ struct CreateNewToDoView: View {
                     Button("Done") {
                         hideView()
                         
-                        let newToDoList = AddedTask(taskName: task, taskIsCompleted: false)
+                        let newToDoList = AddedTask(taskName: task, taskIsCompleted: false, savedDate: dateOfToday)
                         
                         // Add to the list of teams
                         listOfTasks.append(newToDoList)
