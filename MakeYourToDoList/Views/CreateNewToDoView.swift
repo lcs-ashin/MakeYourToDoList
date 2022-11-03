@@ -37,17 +37,10 @@ struct CreateNewToDoView: View {
             // CreateNewToDoView Tab
             VStack {
                 
-                // Set the date
-                DatePicker(selection: $dateOfToday, in: ...Date(), displayedComponents: .date) {
-                    
-                    Text("Today Is")
-                        .font(.custom("Avenir-Heavy", size: 40))
-                    
-                }
-                .frame(width: 290, height: 30, alignment: .center)
-                .padding(.horizontal, 10)
-                .accentColor(.black)
-                .padding()
+                Text("Today's Task")
+                    .font(.custom("Avenir-Heavy", size: 40))
+                
+                    .padding()
                 
                 // Enter a task
                     TextField("Enter your task", text: self.$task)
@@ -55,6 +48,9 @@ struct CreateNewToDoView: View {
                         .textFieldStyle(.roundedBorder)
                         .frame(height: 30)
                         .padding()
+                
+                // Set the date
+                DatePicker("Due", selection: $dateOfToday, displayedComponents: .date).datePickerStyle(GraphicalDatePickerStyle())
                 
                 Spacer()
             }
@@ -68,7 +64,9 @@ struct CreateNewToDoView: View {
                         
                         hideView()
                         
-                        let newToDoList = AddedTask(taskName: task, taskIsCompleted: false, savedDate: dateOfToday)
+                        let newToDoList = AddedTask(taskName: task,
+                                                    taskIsCompleted: false,
+                                                    savedDate: dateOfToday)
                         
                         // Add to the list of teams
                         listOfTasks.append(newToDoList)

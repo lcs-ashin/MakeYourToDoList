@@ -96,9 +96,24 @@ struct CompletedTaskView_Previews: PreviewProvider {
     
     static var previews: some View {
         
-        CompletedTaskView(completedTasks: .constant(exampleAddedTasks),
-                          listOfTasks: .constant(exampleAddedTasks),
-                          dateOfToday: .constant(Date()))
+        NavigationView {
+            
+            LiveContentView()
+            
+        }
+    }
+    struct LiveContentView: View {
+        @State var tasksFinished: [AddedTask] = []
+        
+        var body: some View {
+            
+            CompletedTaskView(completedTasks: $tasksFinished,
+                              listOfTasks: .constant(exampleAddedTasks),
+                              dateOfToday: .constant(Date()))
+            
+        }
         
     }
+    
 }
+
