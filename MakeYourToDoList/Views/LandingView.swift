@@ -28,7 +28,9 @@ struct LandingView: View {
             
             // To Do
             ZStack {
+                
                 VStack {
+                    
                     Text("To-Do")
                         .font(.custom("Avenir-Heavy", size: 40))
                         .padding(.vertical, 30)
@@ -44,9 +46,11 @@ struct LandingView: View {
                         Spacer()
                         
                     } else {
+                        
                         List(listOfTasks) { currentToDoList in
                             
                             HStack {
+                                
                                 Text(currentToDoList.taskName)
                                     .font(.custom("Avenir-Book", size: 20))
                                 
@@ -54,12 +58,14 @@ struct LandingView: View {
                                 
                                 Text(currentToDoList.savedDate.formatted(date: .abbreviated, time: .omitted))
                                     .font(.custom("Avenir-Book", size: 17))
+                                
                             }
                             .swipeActions(edge: .trailing,
                                           allowsFullSwipe: true) {
                                 
-                        
+                                
                                 Button("Completed") {
+                                    
                                     let newCompletedTask = AddedTask(taskName: currentToDoList.taskName,
                                                                      taskIsCompleted: true,
                                                                      savedDate: currentToDoList.savedDate)
@@ -69,12 +75,15 @@ struct LandingView: View {
                                     
                                     // Delete from To-Do list
                                     listOfTasks.remove(at: listOfTasks.firstIndex(of: currentToDoList)!)
+                                    
                                 }
                                 .tint(.black)
                                 .font(.custom("Avenir-Book", size: 20))
                                 
                                 Button("Delete") {
+                                    
                                     listOfTasks.remove(at: listOfTasks.firstIndex(of: currentToDoList)!)
+                                    
                                 }
                                 .tint(.red)
                                 .font(.custom("Avenir-Book", size: 20))
@@ -91,10 +100,14 @@ struct LandingView: View {
                     .font(Font.system(size: 70))
                     .offset(x: 140, y: 270)
                     .onTapGesture {
+                        
                         showNewToDoPage = true
+                        
                     }
                     .sheet(isPresented: $showNewToDoPage) {
+                        
                         CreateNewToDoView(showThisView: $showNewToDoPage, listOfTasks: $listOfTasks)
+                        
                     }
                 
                 // Settingss button
@@ -103,14 +116,20 @@ struct LandingView: View {
                     .font(Font.system(size: 70))
                     .offset(x: 140, y: 180)
                     .onTapGesture {
+                        
                         showSettings = true
+                        
                     }
                     .sheet(isPresented: $showSettings) {
+                        
                         SettingsView(showThisView: $showSettings)
+                        
                     }
             }
             .tabItem {
+                
                 VStack {
+                    
                     Image(systemName: "list.bullet")
                     Text("To-Do")
                         .font(.custom("Avenir-Book", size: 15))
@@ -119,8 +138,11 @@ struct LandingView: View {
             
             
             // Completed Tasks
-            CompletedTaskView(completedTasks: $completedTasks, listOfTasks: $listOfTasks)
+            CompletedTaskView(completedTasks: $completedTasks,
+                              listOfTasks: $listOfTasks,
+                              dateOfToday: $dateOfToday)
                 .tabItem {
+                    
                     Image(systemName: "checkmark.square")
                     Text("Completed")
                         .font(.custom("Avenir-Book", size: 15))
@@ -132,23 +154,34 @@ struct LandingView: View {
     }
     
     func delete(indexSet: IndexSet) {
+        
         listOfTasks.remove(atOffsets: indexSet)
+        
     }
     
 }
 
 struct LandingView_Previews: PreviewProvider {
+    
     static var previews: some View {
+        
         NavigationView {
+            
             LiveContentView()
+            
         }
     }
     
     struct LiveContentView: View {
+        
         @State var tasksToDo: [AddedTask] = []
         
         var body: some View {
-            LandingView(listOfTasks: $tasksToDo, task: .constant(""), dateOfToday: .constant(Date()))
+            
+            LandingView(listOfTasks: $tasksToDo,
+                        task: .constant(""),
+                        dateOfToday: .constant(Date()))
+            
         }
     }
 }

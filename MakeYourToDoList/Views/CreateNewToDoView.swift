@@ -10,9 +10,7 @@ import SwiftUI
 struct CreateNewToDoView: View {
     
     // MARK: Stored Properties
-    
-    //   @Binding var toDoLists = [ToDoList]
-    
+        
     // Controls whether to show this view or not
     @Binding var showThisView: Bool
     
@@ -41,6 +39,7 @@ struct CreateNewToDoView: View {
                 
                 // Set the date
                 DatePicker(selection: $dateOfToday, in: ...Date(), displayedComponents: .date) {
+                    
                     Text("Today Is")
                         .font(.custom("Avenir-Heavy", size: 40))
                     
@@ -62,8 +61,11 @@ struct CreateNewToDoView: View {
             .padding()
             .accentColor(.black)
             .toolbar {
+                
                 ToolbarItem(placement: .primaryAction) {
+                    
                     Button("Done") {
+                        
                         hideView()
                         
                         let newToDoList = AddedTask(taskName: task, taskIsCompleted: false, savedDate: dateOfToday)
@@ -75,6 +77,7 @@ struct CreateNewToDoView: View {
                     .font(.custom("Avenir-Book", size: 20))
                     .disabled(task.isEmpty ? true : false)
                     .tint(.black)
+                    
                 }
             }
         }
@@ -83,18 +86,25 @@ struct CreateNewToDoView: View {
     // MARK: Functions
     // Makes this view go away
     func hideView() {
+        
         showThisView = false
+        
     }
     
     func delete(indexSet: IndexSet) {
+        
         listOfTasks.remove(atOffsets: indexSet)
+        
     }
     
 }
 
 struct CreateNewToDoView_Previews: PreviewProvider {
+    
     static var previews: some View {
+        
         CreateNewToDoView(showThisView: .constant(true),
                           listOfTasks: .constant(exampleAddedTasks))
+        
     }
 }
