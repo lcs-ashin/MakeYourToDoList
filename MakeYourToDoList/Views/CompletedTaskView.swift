@@ -27,7 +27,7 @@ struct CompletedTaskView: View {
             
             // Title
             Text("Completed Tasks")
-                .font(Font.custom("Avenir-Heavy", size: 40))
+                .font(Font.custom("Helvetica Neue Medium", size: 35))
                 .padding(.vertical, 30)
             
             
@@ -38,7 +38,7 @@ struct CompletedTaskView: View {
                 
                 Text("Complete your tasks")
                     .foregroundColor(.secondary)
-                    .font(.custom("Avenir-Book", size: 30))
+                    .font(.custom("Helvetica Neue Light", size: 30))
                 
                 Spacer()
                 
@@ -50,12 +50,12 @@ struct CompletedTaskView: View {
                     HStack {
                         
                         Text(currentCompletedTask.taskName)
-                            .font(.custom("Avenir-Book", size: 20))
+                            .font(.custom("Helvetica Neue Light", size: 20))
                         
                         Spacer()
                         
                         Text(currentCompletedTask.savedDate.formatted(date: .abbreviated, time: .omitted))
-                            .font(.custom("Avenir-Book", size: 17))
+                            .font(.custom("Helvetica Neue Light", size: 17))
                         
                     }
                     
@@ -74,7 +74,7 @@ struct CompletedTaskView: View {
                             
                         }
                         .tint(.black)
-                        .font(.custom("Avenir-Book", size: 20))
+                        .font(.custom("Helvetica Neue Light", size: 20))
                         
                         Button("Delete") {
                             
@@ -82,11 +82,13 @@ struct CompletedTaskView: View {
                             
                         }
                         .tint(.red)
-                        .font(.custom("Avenir-Book", size: 20))
+                        .font(.custom("Helvetica Neue Light", size: 20))
                         
                     }
                 }
                 .listStyle(.insetGrouped)
+                .padding(.vertical)
+                
             }
         }
     }

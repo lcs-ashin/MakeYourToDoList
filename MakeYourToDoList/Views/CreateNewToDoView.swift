@@ -38,13 +38,13 @@ struct CreateNewToDoView: View {
             VStack {
                 
                 Text("Today's Task")
-                    .font(.custom("Avenir-Heavy", size: 40))
+                    .font(.custom("Helvetica Neue Medium", size: 40))
                 
                     .padding()
                 
                 // Enter a task
                     TextField("Enter your task", text: self.$task)
-                        .font(.custom("Avenir-Book", size: 20))
+                        .font(.custom("Helvetica Neue Light", size: 20))
                         .textFieldStyle(.roundedBorder)
                         .frame(height: 30)
                         .padding()
@@ -72,7 +72,7 @@ struct CreateNewToDoView: View {
                         listOfTasks.append(newToDoList)
                         
                     }
-                    .font(.custom("Avenir-Book", size: 20))
+                    .font(.custom("Helvetica Neue Light", size: 20))
                     .disabled(task.isEmpty ? true : false)
                     .tint(.black)
                     

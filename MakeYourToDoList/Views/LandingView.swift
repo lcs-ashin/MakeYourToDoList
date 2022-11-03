@@ -32,7 +32,7 @@ struct LandingView: View {
                 VStack {
                     
                     Text("To-Do")
-                        .font(.custom("Avenir-Heavy", size: 40))
+                        .font(.custom("Helvetica Neue Medium", size: 40))
                         .padding(.vertical, 30)
                     
                     if listOfTasks.isEmpty {
@@ -41,7 +41,7 @@ struct LandingView: View {
                         
                         Text("Add New Tasks")
                             .foregroundColor(.secondary)
-                            .font(.custom("Avenir-Book", size: 30))
+                            .font(.custom("Helvetica Neue Light", size: 30))
                         
                         Spacer()
                         
@@ -52,12 +52,12 @@ struct LandingView: View {
                             HStack {
                                 
                                 Text(currentToDoList.taskName)
-                                    .font(.custom("Avenir-Book", size: 20))
+                                    .font(.custom("Helvetica Neue Light", size: 20))
                                 
                                 Spacer()
                                 
                                 Text(currentToDoList.savedDate.formatted(date: .abbreviated, time: .omitted))
-                                    .font(.custom("Avenir-Book", size: 17))
+                                    .font(.custom("Helvetica Neue Light", size: 17))
                                 
                             }
                             .swipeActions(edge: .trailing,
@@ -91,14 +91,15 @@ struct LandingView: View {
                             }
                         }
                         .listStyle(.insetGrouped)
+                        .padding(.vertical)
                     }
                 }
                 
                 // New To-Do list button
                 Image(systemName: "plus.circle.fill")
                     .foregroundColor(.black)
-                    .font(Font.system(size: 70))
-                    .offset(x: 140, y: 270)
+                    .font(Font.system(size: 65))
+                    .offset(x: 135, y: 260)
                     .onTapGesture {
                         
                         showNewToDoPage = true
@@ -106,15 +107,16 @@ struct LandingView: View {
                     }
                     .sheet(isPresented: $showNewToDoPage) {
                         
-                        CreateNewToDoView(showThisView: $showNewToDoPage, listOfTasks: $listOfTasks)
+                        CreateNewToDoView(showThisView: $showNewToDoPage,
+                                          listOfTasks: $listOfTasks)
                         
                     }
                 
-                // Settingss button
+                // Settings button
                 Image(systemName: "gear.circle.fill")
                     .foregroundColor(.black)
-                    .font(Font.system(size: 70))
-                    .offset(x: 140, y: 180)
+                    .font(Font.system(size: 65))
+                    .offset(x: 135, y: 180)
                     .onTapGesture {
                         
                         showSettings = true
@@ -132,7 +134,7 @@ struct LandingView: View {
                     
                     Image(systemName: "list.bullet")
                     Text("To-Do")
-                        .font(.custom("Avenir-Book", size: 15))
+                    
                 }
             }
             
@@ -145,7 +147,6 @@ struct LandingView: View {
                     
                     Image(systemName: "checkmark.square")
                     Text("Completed")
-                        .font(.custom("Avenir-Book", size: 15))
                     
                 }
         }
