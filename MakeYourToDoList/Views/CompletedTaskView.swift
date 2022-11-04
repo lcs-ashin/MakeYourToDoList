@@ -47,18 +47,9 @@ struct CompletedTaskView: View {
                 
                 List(completedTasks) { currentCompletedTask in
                     
-                    HStack {
-                        
-                        Text(currentCompletedTask.taskName)
-                            .font(.custom("Helvetica Neue Light", size: 20))
-                        
-                        Spacer()
-                        
-                        Text(currentCompletedTask.savedDate.formatted(date: .abbreviated, time: .omitted))
-                            .font(.custom("Helvetica Neue Light", size: 17))
-                        
-                    }
-                    
+                    // TaskInListView
+                    TaskInListView(taskName: currentCompletedTask.taskName,
+                                   savedDate: currentCompletedTask.savedDate)
                     .swipeActions(edge: .trailing,
                                   allowsFullSwipe: true) {
                         

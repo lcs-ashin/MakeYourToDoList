@@ -51,6 +51,33 @@ struct LandingView: View {
                         
                     } else {
                         
+                        HStack {
+                                                        
+                            DatePicker("Date Filter:",
+                                       selection: $dateOfToday,
+                                       displayedComponents: .date)
+                                .datePickerStyle(.compact)
+                                .font(.custom("Helvetica Neue Light", size: 18))
+                                .padding(.horizontal)
+                            
+                            // Showing the reset button
+                            Button(action: {
+                                
+                                selectionMade = false
+                                print("Resetting")
+                                
+                            }, label: {
+                                
+                                Image(systemName: "arrow.counterclockwise.circle.fill")
+                                
+                            })
+                            .foregroundColor(.black)
+                            .font(Font.system(size: 30))
+                            
+                        }
+                        .frame(width: 285, height: 10)
+                        .padding(.horizontal)
+                            
                         List(listOfTasks) { currentToDoList in
                             
                             HStack {
@@ -60,7 +87,8 @@ struct LandingView: View {
                                 
                                 Spacer()
                                 
-                                Text(currentToDoList.savedDate.formatted(date: .abbreviated, time: .omitted))
+                                Text(currentToDoList.savedDate.formatted(date: .abbreviated,
+                                                                         time: .omitted))
                                     .font(.custom("Helvetica Neue Light", size: 17))
                                 
                             }
@@ -82,7 +110,7 @@ struct LandingView: View {
                                     
                                 }
                                 .tint(.black)
-                                .font(.custom("Avenir-Book", size: 20))
+                                .font(.custom("Helvetica Neue Light", size: 20))
                                 
                                 Button("Delete") {
                                     
@@ -90,7 +118,7 @@ struct LandingView: View {
                                     
                                 }
                                 .tint(.red)
-                                .font(.custom("Avenir-Book", size: 20))
+                                .font(.custom("Helvetica Neue Light", size: 20))
                                 
                             }
                         }
@@ -147,12 +175,12 @@ struct LandingView: View {
             CompletedTaskView(completedTasks: $completedTasks,
                               listOfTasks: $listOfTasks,
                               dateOfToday: $dateOfToday)
-                .tabItem {
-                    
-                    Image(systemName: "checkmark.square")
-                    Text("Completed")
-                    
-                }
+            .tabItem {
+                
+                Image(systemName: "checkmark.square")
+                Text("Completed")
+                
+            }
         }
         .accentColor(.black)
         .padding(.bottom, 15)
