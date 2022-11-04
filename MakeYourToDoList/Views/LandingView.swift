@@ -80,7 +80,7 @@ struct LandingView: View {
                         .padding(.horizontal)
                         
                         // List of added tasks
-                        List(listOfTasks) { currentToDoList in
+                        List(filtered(by: dateOfToday, from: listOfTasks, selectionActive: selectionMade)) { currentToDoList in
                             
                             // TaskInListView
                             TaskInListView(taskName: currentToDoList.taskName,
@@ -117,8 +117,15 @@ struct LandingView: View {
                         }
                         .listStyle(.insetGrouped)
                         .padding(.vertical)
+                        .onChange(of: dateOfToday) { newValue in
+                            
+                                selectionMade = true
+                                print(selectionMade)
+                            
+                        }
                     }
                 }
+                
                 
                 // New To-Do list button
                 Image(systemName: "plus.circle.fill")
@@ -185,6 +192,31 @@ struct LandingView: View {
         
     }
     
+    func filtered(by dateSelected: Date, from list: [AddedTask], selectionActive: Bool) -> [AddedTask] {
+
+        // Don't filter results when a selection is not active
+        if selectionActive == false {
+
+            return list
+
+        } else {
+
+            var filteredResults: [AddedTask] = []
+
+            for savedTask in list {
+
+                if dateSelected == savedTask.savedDate {
+
+                    filteredResults.append(savedTask)
+
+                }
+
+            }
+
+            return filteredResults
+
+        }
+    }
 }
 
 struct LandingView_Previews: PreviewProvider {

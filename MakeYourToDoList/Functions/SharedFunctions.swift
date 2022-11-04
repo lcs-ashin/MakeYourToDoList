@@ -8,7 +8,7 @@
 import Foundation
 
 // Return a list of tasks that have been filtered by a due date selected by date picker
-func filter(by dateOfToday: Date, from list: [AddedTask], selectionActive: Bool) -> [AddedTask] {
+func filtered(by dateSelected: Date, from list: [AddedTask], selectionActive: Bool) -> [AddedTask] {
     
     // Don't filter results when a selection is not active
     if selectionActive == false {
@@ -21,7 +21,7 @@ func filter(by dateOfToday: Date, from list: [AddedTask], selectionActive: Bool)
         
         for savedTask in list {
             
-            if dateOfToday == savedTask.dateOfToday {
+            if dateSelected == savedTask.savedDate {
                 
                 filteredResults.append(savedTask)
                 
