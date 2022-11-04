@@ -45,6 +45,7 @@ struct CompletedTaskView: View {
                 
             } else {
                 
+                // List of completed tasks
                 List(completedTasks) { currentCompletedTask in
                     
                     // TaskInListView
@@ -53,6 +54,7 @@ struct CompletedTaskView: View {
                     .swipeActions(edge: .trailing,
                                   allowsFullSwipe: true) {
                         
+                        // Buttons show up when the task is slided to the left
                         Button("Incompleted") {
                             
                             let newIncompletedTask = AddedTask(taskName: currentCompletedTask.taskName, taskIsCompleted: false, savedDate: currentCompletedTask.savedDate)

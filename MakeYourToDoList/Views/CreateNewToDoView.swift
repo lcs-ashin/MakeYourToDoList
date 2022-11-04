@@ -37,7 +37,7 @@ struct CreateNewToDoView: View {
             // CreateNewToDoView Tab
             VStack {
                 
-                Text("Today's Task")
+                Text("Add a Task")
                     .font(.custom("Helvetica Neue Medium", size: 40))
                 
                     .padding()

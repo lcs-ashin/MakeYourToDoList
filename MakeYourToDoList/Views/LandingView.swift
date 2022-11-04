@@ -52,13 +52,14 @@ struct LandingView: View {
                     } else {
                         
                         HStack {
-                                                        
+                            
+                            // Date picker to filter the tasks
                             DatePicker("Date Filter:",
                                        selection: $dateOfToday,
                                        displayedComponents: .date)
-                                .datePickerStyle(.compact)
-                                .font(.custom("Helvetica Neue Light", size: 18))
-                                .padding(.horizontal)
+                            .datePickerStyle(.compact)
+                            .font(.custom("Helvetica Neue Light", size: 18))
+                            .padding(.horizontal)
                             
                             // Showing the reset button
                             Button(action: {
@@ -77,25 +78,17 @@ struct LandingView: View {
                         }
                         .frame(width: 285, height: 10)
                         .padding(.horizontal)
-                            
+                        
+                        // List of added tasks
                         List(listOfTasks) { currentToDoList in
                             
-                            HStack {
-                                
-                                Text(currentToDoList.taskName)
-                                    .font(.custom("Helvetica Neue Light", size: 20))
-                                
-                                Spacer()
-                                
-                                Text(currentToDoList.savedDate.formatted(date: .abbreviated,
-                                                                         time: .omitted))
-                                    .font(.custom("Helvetica Neue Light", size: 17))
-                                
-                            }
+                            // TaskInListView
+                            TaskInListView(taskName: currentToDoList.taskName,
+                                           savedDate: currentToDoList.savedDate)
                             .swipeActions(edge: .trailing,
                                           allowsFullSwipe: true) {
                                 
-                                
+                                // Buttons show up when the task is slided to the left
                                 Button("Completed") {
                                     
                                     let newCompletedTask = AddedTask(taskName: currentToDoList.taskName,
