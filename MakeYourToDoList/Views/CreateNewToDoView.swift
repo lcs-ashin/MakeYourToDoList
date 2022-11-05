@@ -10,7 +10,7 @@ import SwiftUI
 struct CreateNewToDoView: View {
     
     // MARK: Stored Properties
-        
+    
     // Controls whether to show this view or not
     @Binding var showThisView: Bool
     
@@ -37,8 +37,6 @@ struct CreateNewToDoView: View {
         
         NavigationView {
             
-            
-            
             // CreateNewToDoView Tab
             VStack {
                 
@@ -48,17 +46,18 @@ struct CreateNewToDoView: View {
                     .padding()
                 
                 // Enter a task
-                    TextField("Enter your task", text: self.$task)
-                        .font(.custom("\(selectedFont) Light", size: 20))
-                        .textFieldStyle(.roundedBorder)
-                        .frame(height: 30)
-                        .padding()
+                TextField("Enter your task", text: self.$task)
+                    .font(.custom("\(selectedFont) Light", size: 20))
+                    .textFieldStyle(.roundedBorder)
+                    .frame(height: 30)
+                    .padding()
                 
                 // Set the date
                 DatePicker("Due", selection: $dateOfToday, displayedComponents: .date).datePickerStyle(GraphicalDatePickerStyle())
                     .accentColor(themeColor)
                 
                 Spacer()
+                
             }
             .padding()
             .accentColor(.black)
