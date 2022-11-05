@@ -14,7 +14,7 @@ struct SettingsView: View {
     @Binding var showThisView: Bool
     
     // Controls the theme colour
-    @State var themeColor: Color = Color.black
+    @Binding var themeColor: Color //= Color.black
     
     // Available fonts
 //    var fonts = ["Avenir-Book", "AppleSDGothicNeo-UltraLight", "DevanagariSangamMN", "Georgia", "GillSans-Light", "HelveticaNeue-Light", "Optima-Regular"]
@@ -84,6 +84,6 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(showThisView: .constant(true))
+        SettingsView(showThisView: .constant(true), themeColor: .constant(Color("")))
     }
 }

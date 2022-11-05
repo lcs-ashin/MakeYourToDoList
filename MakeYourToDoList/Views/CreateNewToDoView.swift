@@ -26,6 +26,8 @@ struct CreateNewToDoView: View {
     // Add completed tasks to another list
     @State var completedTasks: [AddedTask] = []
     
+    // Controls the theme colour
+    @Binding var themeColor: Color
     
     // MARK: Computed Properties
     var body: some View {
@@ -39,7 +41,7 @@ struct CreateNewToDoView: View {
                 
                 Text("Add a Task")
                     .font(.custom("Helvetica Neue Medium", size: 40))
-                
+                    .foregroundColor(themeColor)
                     .padding()
                 
                 // Enter a task
@@ -51,6 +53,7 @@ struct CreateNewToDoView: View {
                 
                 // Set the date
                 DatePicker("Due", selection: $dateOfToday, displayedComponents: .date).datePickerStyle(GraphicalDatePickerStyle())
+                    .accentColor(themeColor)
                 
                 Spacer()
             }
@@ -74,7 +77,7 @@ struct CreateNewToDoView: View {
                     }
                     .font(.custom("Helvetica Neue Light", size: 20))
                     .disabled(task.isEmpty ? true : false)
-                    .tint(.black)
+                    .tint(themeColor)
                     
                 }
             }
@@ -102,7 +105,8 @@ struct CreateNewToDoView_Previews: PreviewProvider {
     static var previews: some View {
         
         CreateNewToDoView(showThisView: .constant(true),
-                          listOfTasks: .constant(exampleAddedTasks))
+                          listOfTasks: .constant(exampleAddedTasks),
+                          themeColor: .constant(Color("")))
         
     }
 }

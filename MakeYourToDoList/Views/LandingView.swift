@@ -19,11 +19,14 @@ struct LandingView: View {
     @State var completedTasks: [AddedTask] = []
     
     // Added tasks and due dates of the tasks
-    @Binding var task: String
     @Binding var dateOfToday: Date
     
     // Whether a date has been selected or not
     @State var selectionMade = false
+    
+    // Change the theme colour
+    // Controls the theme colour
+    @State var themeColor: Color = Color.black
     
     // MARK: Computed Properties
     var body: some View {
@@ -38,6 +41,7 @@ struct LandingView: View {
                     Text("To-Do")
                         .font(.custom("Helvetica Neue Medium", size: 40))
                         .padding(.vertical, 30)
+                        .foregroundColor(themeColor)
                     
                     if listOfTasks.isEmpty {
                         
@@ -58,6 +62,7 @@ struct LandingView: View {
                                        selection: $dateOfToday,
                                        displayedComponents: .date)
                             .datePickerStyle(.compact)
+                            .accentColor(themeColor)
                             .font(.custom("Helvetica Neue Light", size: 18))
                             .padding(.horizontal)
                             
@@ -72,7 +77,7 @@ struct LandingView: View {
                                 Image(systemName: "arrow.counterclockwise.circle.fill")
                                 
                             })
-                            .foregroundColor(.black)
+                            .foregroundColor(themeColor)
                             .font(Font.system(size: 30))
                             
                         }
@@ -102,7 +107,7 @@ struct LandingView: View {
                                     listOfTasks.remove(at: listOfTasks.firstIndex(of: currentToDoList)!)
                                     
                                 }
-                                .tint(.black)
+                                .tint(themeColor)
                                 .font(.custom("Helvetica Neue Light", size: 20))
                                 
                                 Button("Delete") {
@@ -129,7 +134,7 @@ struct LandingView: View {
                 
                 // New To-Do list button
                 Image(systemName: "plus.circle.fill")
-                    .foregroundColor(.black)
+                    .foregroundColor(themeColor)
                     .font(Font.system(size: 65))
                     .offset(x: 135, y: 260)
                     .onTapGesture {
@@ -140,13 +145,14 @@ struct LandingView: View {
                     .sheet(isPresented: $showNewToDoPage) {
                         
                         CreateNewToDoView(showThisView: $showNewToDoPage,
-                                          listOfTasks: $listOfTasks)
+                                          listOfTasks: $listOfTasks,
+                                          themeColor: $themeColor)
                         
                     }
                 
                 // Settings button
                 Image(systemName: "gear.circle.fill")
-                    .foregroundColor(.black)
+                    .foregroundColor(themeColor)
                     .font(Font.system(size: 65))
                     .offset(x: 135, y: 180)
                     .onTapGesture {
@@ -156,7 +162,7 @@ struct LandingView: View {
                     }
                     .sheet(isPresented: $showSettings) {
                         
-                        SettingsView(showThisView: $showSettings)
+                        SettingsView(showThisView: $showSettings, themeColor: $themeColor)
                         
                     }
             }
@@ -174,15 +180,18 @@ struct LandingView: View {
             // Completed Tasks
             CompletedTaskView(completedTasks: $completedTasks,
                               listOfTasks: $listOfTasks,
-                              dateOfToday: $dateOfToday)
+                              dateOfToday: $dateOfToday, themeColor: $themeColor)
             .tabItem {
                 
-                Image(systemName: "checkmark.square")
-                Text("Completed")
-                
+                VStack {
+                    
+                    Image(systemName: "checkmark.square")
+                    Text("Completed")
+                    
+                }
             }
         }
-        .accentColor(.black)
+        .accentColor(themeColor)
         .padding(.bottom, 15)
     }
     
@@ -237,7 +246,6 @@ struct LandingView_Previews: PreviewProvider {
         var body: some View {
             
             LandingView(listOfTasks: $tasksToDo,
-                        task: .constant(""),
                         dateOfToday: .constant(Date()))
             
         }

@@ -19,6 +19,8 @@ struct CompletedTaskView: View {
     // Due date for the task
     @Binding var dateOfToday: Date
     
+    // Controls the theme colour
+    @Binding var themeColor: Color
     
     // MARK: Computed Properties
     var body: some View {
@@ -29,6 +31,7 @@ struct CompletedTaskView: View {
             Text("Completed Tasks")
                 .font(Font.custom("Helvetica Neue Medium", size: 35))
                 .padding(.vertical, 30)
+                .foregroundColor(themeColor)
             
             
             // List of completed tasks
@@ -66,7 +69,7 @@ struct CompletedTaskView: View {
                             completedTasks.remove(at: completedTasks.firstIndex(of: currentCompletedTask)!)
                             
                         }
-                        .tint(.black)
+                        .tint(themeColor)
                         .font(.custom("Helvetica Neue Light", size: 20))
                         
                         Button("Delete") {
@@ -104,7 +107,8 @@ struct CompletedTaskView_Previews: PreviewProvider {
             
             CompletedTaskView(completedTasks: $tasksFinished,
                               listOfTasks: .constant(exampleAddedTasks),
-                              dateOfToday: .constant(Date()))
+                              dateOfToday: .constant(Date()),
+                              themeColor: .constant(Color("")))
             
         }
         

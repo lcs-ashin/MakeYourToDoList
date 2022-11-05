@@ -11,12 +11,12 @@ import SwiftUI
 struct MakeYourToDoListApp: App {
     
     @State var listOfTasks: [AddedTask] = []
-    @State var task: String = ""
     @State var dateOfToday: Date = Date()
+    @State var themeColor: Color = Color.black
     
     var body: some Scene {
         WindowGroup {
-            LandingView(listOfTasks: $listOfTasks, task: $task, dateOfToday: $dateOfToday)
+            LandingView(listOfTasks: $listOfTasks, dateOfToday: $dateOfToday)
         }
     }
 }
