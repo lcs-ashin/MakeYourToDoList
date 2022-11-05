@@ -22,6 +22,9 @@ struct CompletedTaskView: View {
     // Controls the theme colour
     @Binding var themeColor: Color
     
+    // Controls the font
+    @Binding var selectedFont: String
+    
     // MARK: Computed Properties
     var body: some View {
         
@@ -29,7 +32,7 @@ struct CompletedTaskView: View {
             
             // Title
             Text("Completed Tasks")
-                .font(Font.custom("Helvetica Neue Medium", size: 35))
+                .font(Font.custom("\(selectedFont) Medium", size: 35))
                 .padding(.vertical, 30)
                 .foregroundColor(themeColor)
             
@@ -41,7 +44,7 @@ struct CompletedTaskView: View {
                 
                 Text("Complete your tasks")
                     .foregroundColor(.secondary)
-                    .font(.custom("Helvetica Neue Light", size: 30))
+                    .font(.custom("\(selectedFont) Light", size: 30))
                 
                 Spacer()
                 
@@ -53,14 +56,18 @@ struct CompletedTaskView: View {
                     
                     // TaskInListView
                     TaskInListView(taskName: currentCompletedTask.taskName,
-                                   savedDate: currentCompletedTask.savedDate)
+                                   savedDate: currentCompletedTask.savedDate,
+                                   selectedFont: currentCompletedTask.selectedFont)
                     .swipeActions(edge: .trailing,
                                   allowsFullSwipe: true) {
                         
                         // Buttons show up when the task is slided to the left
                         Button("Incompleted") {
                             
-                            let newIncompletedTask = AddedTask(taskName: currentCompletedTask.taskName, taskIsCompleted: false, savedDate: currentCompletedTask.savedDate)
+                            let newIncompletedTask = AddedTask(taskName: currentCompletedTask.taskName,
+                                                               taskIsCompleted: false,
+                                                               savedDate: currentCompletedTask.savedDate,
+                                                               selectedFont: currentCompletedTask.selectedFont)
                             
                             // Add to the list of teams
                             listOfTasks.append(newIncompletedTask)
@@ -70,7 +77,7 @@ struct CompletedTaskView: View {
                             
                         }
                         .tint(themeColor)
-                        .font(.custom("Helvetica Neue Light", size: 20))
+                        .font(.custom("\(selectedFont) Light", size: 20))
                         
                         Button("Delete") {
                             
@@ -78,7 +85,7 @@ struct CompletedTaskView: View {
                             
                         }
                         .tint(.red)
-                        .font(.custom("Helvetica Neue Light", size: 20))
+                        .font(.custom("\(selectedFont) Light", size: 20))
                         
                     }
                 }
@@ -108,7 +115,8 @@ struct CompletedTaskView_Previews: PreviewProvider {
             CompletedTaskView(completedTasks: $tasksFinished,
                               listOfTasks: .constant(exampleAddedTasks),
                               dateOfToday: .constant(Date()),
-                              themeColor: .constant(Color("")))
+                              themeColor: .constant(Color("")),
+                              selectedFont: .constant(""))
             
         }
         

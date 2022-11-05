@@ -28,6 +28,9 @@ struct LandingView: View {
     // Controls the theme colour
     @State var themeColor: Color = Color.black
     
+    // Controls the font
+    @State var selectedFont: String = "Helvetica Neue"
+    
     // MARK: Computed Properties
     var body: some View {
         
@@ -39,7 +42,7 @@ struct LandingView: View {
                 VStack {
                     
                     Text("To-Do")
-                        .font(.custom("Helvetica Neue Medium", size: 40))
+                        .font(.custom("\(selectedFont) Medium", size: 40))
                         .padding(.vertical, 30)
                         .foregroundColor(themeColor)
                     
@@ -49,7 +52,7 @@ struct LandingView: View {
                         
                         Text("Add New Tasks")
                             .foregroundColor(.secondary)
-                            .font(.custom("Helvetica Neue Light", size: 30))
+                            .font(.custom("\(selectedFont) Light", size: 30))
                         
                         Spacer()
                         
@@ -63,7 +66,7 @@ struct LandingView: View {
                                        displayedComponents: .date)
                             .datePickerStyle(.compact)
                             .accentColor(themeColor)
-                            .font(.custom("Helvetica Neue Light", size: 18))
+                            .font(.custom("\(selectedFont) Light", size: 18))
                             .padding(.horizontal)
                             
                             // Showing the reset button
@@ -89,7 +92,8 @@ struct LandingView: View {
                             
                             // TaskInListView
                             TaskInListView(taskName: currentToDoList.taskName,
-                                           savedDate: currentToDoList.savedDate)
+                                           savedDate: currentToDoList.savedDate,
+                                           selectedFont: currentToDoList.selectedFont)
                             .swipeActions(edge: .trailing,
                                           allowsFullSwipe: true) {
                                 
@@ -98,7 +102,8 @@ struct LandingView: View {
                                     
                                     let newCompletedTask = AddedTask(taskName: currentToDoList.taskName,
                                                                      taskIsCompleted: true,
-                                                                     savedDate: currentToDoList.savedDate)
+                                                                     savedDate: currentToDoList.savedDate,
+                                                                     selectedFont: currentToDoList.selectedFont)
                                     
                                     // Add to the list of teams
                                     completedTasks.append(newCompletedTask)
@@ -108,7 +113,7 @@ struct LandingView: View {
                                     
                                 }
                                 .tint(themeColor)
-                                .font(.custom("Helvetica Neue Light", size: 20))
+                                .font(.custom("\(selectedFont) Light", size: 20))
                                 
                                 Button("Delete") {
                                     
@@ -116,7 +121,7 @@ struct LandingView: View {
                                     
                                 }
                                 .tint(.red)
-                                .font(.custom("Helvetica Neue Light", size: 20))
+                                .font(.custom("\(selectedFont) Light", size: 20))
                                 
                             }
                         }
@@ -124,8 +129,8 @@ struct LandingView: View {
                         .padding(.vertical)
                         .onChange(of: dateOfToday) { newValue in
                             
-                                selectionMade = true
-                                print(selectionMade)
+                            selectionMade = true
+                            print(selectionMade)
                             
                         }
                     }
@@ -146,7 +151,8 @@ struct LandingView: View {
                         
                         CreateNewToDoView(showThisView: $showNewToDoPage,
                                           listOfTasks: $listOfTasks,
-                                          themeColor: $themeColor)
+                                          themeColor: $themeColor,
+                                          selectedFont: $selectedFont)
                         
                     }
                 
@@ -162,7 +168,7 @@ struct LandingView: View {
                     }
                     .sheet(isPresented: $showSettings) {
                         
-                        SettingsView(showThisView: $showSettings, themeColor: $themeColor)
+                        SettingsView(showThisView: $showSettings, themeColor: $themeColor, selectedFont: $selectedFont)
                         
                     }
             }
@@ -180,7 +186,9 @@ struct LandingView: View {
             // Completed Tasks
             CompletedTaskView(completedTasks: $completedTasks,
                               listOfTasks: $listOfTasks,
-                              dateOfToday: $dateOfToday, themeColor: $themeColor)
+                              dateOfToday: $dateOfToday,
+                              themeColor: $themeColor,
+                              selectedFont: $selectedFont)
             .tabItem {
                 
                 VStack {
@@ -202,28 +210,28 @@ struct LandingView: View {
     }
     
     func filtered(by dateSelected: Date, from list: [AddedTask], selectionActive: Bool) -> [AddedTask] {
-
+        
         // Don't filter results when a selection is not active
         if selectionActive == false {
-
+            
             return list
-
+            
         } else {
-
+            
             var filteredResults: [AddedTask] = []
-
+            
             for savedTask in list {
-
+                
                 if dateSelected == savedTask.savedDate {
-
+                    
                     filteredResults.append(savedTask)
-
+                    
                 }
-
+                
             }
-
+            
             return filteredResults
-
+            
         }
     }
 }

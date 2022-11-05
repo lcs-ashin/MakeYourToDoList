@@ -12,8 +12,9 @@ struct AddedTask: Identifiable, Equatable {
     let taskName: String
     let taskIsCompleted: Bool
     let savedDate: Date
+    let selectedFont: String
 }
 
 let exampleAddedTasks = [
-    AddedTask(taskName: "Calculus", taskIsCompleted: false, savedDate: Date())
+    AddedTask(taskName: "Calculus", taskIsCompleted: false, savedDate: Date(), selectedFont: "Helvetica Neue")
 ]

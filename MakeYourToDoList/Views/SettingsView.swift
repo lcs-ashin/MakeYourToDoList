@@ -17,8 +17,9 @@ struct SettingsView: View {
     @Binding var themeColor: Color //= Color.black
     
     // Available fonts
-//    var fonts = ["Avenir-Book", "AppleSDGothicNeo-UltraLight", "DevanagariSangamMN", "Georgia", "GillSans-Light", "HelveticaNeue-Light", "Optima-Regular"]
-//    @State var selectedFont = "Avenir-Book"
+    var fonts = ["Avenir", "Helvetica Neue", "SF Compact"]
+    
+    @Binding var selectedFont: String
     
     // MARK: Computed Properties
     var body: some View {
@@ -28,7 +29,7 @@ struct SettingsView: View {
             VStack {
                 // Title
                 Text("Settings")
-                    .font(Font.custom("Helvetica Neue Medium", size: 40))
+                    .font(Font.custom("\(selectedFont) Medium", size: 40))
                     .padding()
                     .foregroundColor(themeColor)
                 
@@ -37,7 +38,9 @@ struct SettingsView: View {
                 HStack {
                     
                     Text("Theme Colour")
-                        .font(Font.custom("Helvetica Neue Light", size: 25))
+                        .font(Font.custom("\(selectedFont) Light", size: 25))
+                    
+                    Spacer()
                     
                     ColorPicker("Choose your theme colour", selection: $themeColor, supportsOpacity: false)
                         .padding()
@@ -45,21 +48,27 @@ struct SettingsView: View {
                         .labelsHidden()
                     
                 }
-                
+                .padding()
                 
                 // Select the font
-//                // Picker
-//                Picker("Fonts", selection: $selectedFont) {
-//                    ForEach(fonts, id: \.self) {
-//                        Text($0)
-//                    }
-//                }
-//                .font(Font.custom("Avenir-Medium", size: 25))
+                HStack {
+                    
+                    Text("Font")
+                        .font(Font.custom("\(selectedFont) Light", size: 25))
+                    
+                    Spacer()
+                    
+                }
+                .padding()
                 
-                // Text for test
-//                Text("Test")
-//                    .foregroundColor(themeColor)
-//                    .font(.custom(selectedFont, size: 25))
+                // Picker
+                Picker("Fonts", selection: $selectedFont) {
+                    ForEach(fonts, id: \.self) {
+                        Text($0)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .padding(.horizontal)
                 
                 Spacer()
                 
@@ -70,6 +79,7 @@ struct SettingsView: View {
                         hideView()
                     }
                     .foregroundColor(themeColor)
+                    .font(Font.custom("\(selectedFont) Light", size: 20))
                 }
             }
         }
@@ -84,6 +94,6 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(showThisView: .constant(true), themeColor: .constant(Color("")))
+        SettingsView(showThisView: .constant(true), themeColor: .constant(Color("")), selectedFont: .constant(""))
     }
 }

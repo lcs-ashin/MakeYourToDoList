@@ -29,6 +29,9 @@ struct CreateNewToDoView: View {
     // Controls the theme colour
     @Binding var themeColor: Color
     
+    // Controls the font
+    @Binding var selectedFont: String
+    
     // MARK: Computed Properties
     var body: some View {
         
@@ -40,13 +43,13 @@ struct CreateNewToDoView: View {
             VStack {
                 
                 Text("Add a Task")
-                    .font(.custom("Helvetica Neue Medium", size: 40))
+                    .font(.custom("\(selectedFont) Medium", size: 40))
                     .foregroundColor(themeColor)
                     .padding()
                 
                 // Enter a task
                     TextField("Enter your task", text: self.$task)
-                        .font(.custom("Helvetica Neue Light", size: 20))
+                        .font(.custom("\(selectedFont) Light", size: 20))
                         .textFieldStyle(.roundedBorder)
                         .frame(height: 30)
                         .padding()
@@ -69,13 +72,14 @@ struct CreateNewToDoView: View {
                         
                         let newToDoList = AddedTask(taskName: task,
                                                     taskIsCompleted: false,
-                                                    savedDate: dateOfToday)
+                                                    savedDate: dateOfToday,
+                                                    selectedFont: selectedFont)
                         
                         // Add to the list of teams
                         listOfTasks.append(newToDoList)
                         
                     }
-                    .font(.custom("Helvetica Neue Light", size: 20))
+                    .font(.custom("\(selectedFont) Light", size: 20))
                     .disabled(task.isEmpty ? true : false)
                     .tint(themeColor)
                     
@@ -106,7 +110,8 @@ struct CreateNewToDoView_Previews: PreviewProvider {
         
         CreateNewToDoView(showThisView: .constant(true),
                           listOfTasks: .constant(exampleAddedTasks),
-                          themeColor: .constant(Color("")))
+                          themeColor: .constant(Color("")),
+                          selectedFont: .constant(""))
         
     }
 }
