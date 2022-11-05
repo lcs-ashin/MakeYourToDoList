@@ -24,7 +24,7 @@
 		8AAB9551282B3D2B005EA2A3 /* CompletedTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTaskView.swift; sourceTree = "<group>"; };
 		8AAB9553282B4D07005EA2A3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8AAB9556282C8761005EA2A3 /* AddedTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddedTask.swift; sourceTree = "<group>"; };
-		8AAFB1D52829A1E40027B171 /* MakeYourToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MakeYourToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AAFB1D52829A1E40027B171 /* My To-Do List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My To-Do List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AAFB1D82829A1E40027B171 /* MakeYourToDoListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeYourToDoListApp.swift; sourceTree = "<group>"; };
 		8AAFB1DA2829A1E40027B171 /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		8AAFB1DC2829A1ED0027B171 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -73,7 +73,7 @@
 		8AAFB1D62829A1E40027B171 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AAFB1D52829A1E40027B171 /* MakeYourToDoList.app */,
+				8AAFB1D52829A1E40027B171 /* My To-Do List.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -115,7 +115,7 @@
 			);
 			name = MakeYourToDoList;
 			productName = MakeYourToDoList;
-			productReference = 8AAFB1D52829A1E40027B171 /* MakeYourToDoList.app */;
+			productReference = 8AAFB1D52829A1E40027B171 /* My To-Do List.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -320,7 +320,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ca.amyshin.MakeYourToDoList;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "My To-Do List";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -350,7 +350,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ca.amyshin.MakeYourToDoList;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "My To-Do List";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

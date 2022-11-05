@@ -73,6 +73,7 @@ struct LandingView: View {
                             Button(action: {
                                 
                                 selectionMade = false
+                                dateOfToday = Date.now
                                 print("Resetting")
                                 
                             }, label: {
