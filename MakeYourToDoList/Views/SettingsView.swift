@@ -14,7 +14,7 @@ struct SettingsView: View {
     @Binding var showThisView: Bool
     
     // Controls the theme colour
-    @State var themeColor = Color.blue
+    @State var themeColor: Color = Color.black
     
     // Available fonts
 //    var fonts = ["Avenir-Book", "AppleSDGothicNeo-UltraLight", "DevanagariSangamMN", "Georgia", "GillSans-Light", "HelveticaNeue-Light", "Optima-Regular"]
@@ -28,15 +28,24 @@ struct SettingsView: View {
             VStack {
                 // Title
                 Text("Settings")
-                    .font(Font.custom("Avenir-Heavy", size: 40))
+                    .font(Font.custom("Helvetica Neue Medium", size: 40))
                     .padding()
+                    .foregroundColor(themeColor)
                 
                 // Select the theme colour
                 // Color picker
-                ColorPicker("Theme Colour", selection: $themeColor, supportsOpacity: false)
-                    .font(Font.custom("Avenir-Medium", size: 25))
-                    .padding()
-                    .frame(width: 300)
+                HStack {
+                    
+                    Text("Theme Colour")
+                        .font(Font.custom("Helvetica Neue Light", size: 25))
+                    
+                    ColorPicker("Choose your theme colour", selection: $themeColor, supportsOpacity: false)
+                        .padding()
+                        .scaleEffect(CGSize(width: 1.3, height: 1.3))
+                        .labelsHidden()
+                    
+                }
+                
                 
                 // Select the font
 //                // Picker
@@ -48,16 +57,19 @@ struct SettingsView: View {
 //                .font(Font.custom("Avenir-Medium", size: 25))
                 
                 // Text for test
-                Text("Test")
-                    .foregroundColor(themeColor)
+//                Text("Test")
+//                    .foregroundColor(themeColor)
 //                    .font(.custom(selectedFont, size: 25))
+                
+                Spacer()
+                
             }
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button("Done") {
                         hideView()
                     }
-                    .foregroundColor(.black)
+                    .foregroundColor(themeColor)
                 }
             }
         }
